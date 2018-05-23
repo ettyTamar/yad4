@@ -1,12 +1,15 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from "react";
+import { Container } from "native-base";
+import { StyleSheet } from "react-native";
+import Login from "./components/Login";
+
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text></Text>
-      </View>
+      <Container style={styles.container}>
+        <Login/>
+      </Container>
     );
   }
 }
