@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 import Login from "./components/Login";
 
 
-export default class App extends React.Component {
+export default class App extends Component {
   render() {
     return (
       <Container style={styles.container}>
