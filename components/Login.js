@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Container, Header, Content, Form, Item, Input, Label} from "native-base";
+import { Content, Form, Item, Input, Label, Button , Text } from 'native-base';
 
-export default class componentName extends Component {
+export default class Login extends Component {
   render() {
-    return(
-     <Content>
+    return (
+        <Content>
         <Form>
           <Item floatingLabel>
             <Label>Username</Label>
@@ -14,7 +14,16 @@ export default class componentName extends Component {
             <Label>Password</Label>
             <Input />
           </Item>
+          <Button>
+            <Text>Login</Text>
+          </Button>
+          <Button>
+            <Text>Guest</Text>
+          </Button>
         </Form>
+        <Button>
+            <Text>Register</Text>
+          </Button>
       </Content>
     );
   }
