@@ -1,24 +1,11 @@
-import React, { Component } from "react";
-import { Container } from "native-base";
-import { StyleSheet } from "react-native";
-import Login from "./components/Login";
+import React, { Component } from 'react';
+import Login from './components/Login/Login';
+import Home from './components/Home';
+import Register from './components/Register/Register';
+import { createSwitchNavigator } from 'react-navigation';
 
-
-export default class App extends Component {
-  render() {
-    return (
-      <Container style={styles.container}>
-        <Login/>
-      </Container>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+export default createSwitchNavigator({
+  Login: Login,
+  Home: Home,
+  Register: Register
 });
