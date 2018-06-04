@@ -10,7 +10,8 @@ fileGrowth=30%)
 collate hebrew_CI_AS
 go
 
-use NirProject
+
+use site04
 go
 
 create table Catagory(
