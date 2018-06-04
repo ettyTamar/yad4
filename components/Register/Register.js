@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { KeyboardAvoidingView, StyleSheet,Text } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Wallpaper from '../Wallpaper';
 import UserInput from '../Form/UserInput';
 import usernameImg from '../../assets/images/username.png';
@@ -9,10 +9,14 @@ import ButtonSubmit from '../Form/ButtonSubmit';
 
 export default class Register extends Component {
 
+  Submit = () =>{
+    console.log("REGISTERED");
+    
+  }
   render() {
     return (
-      
-        <Wallpaper>
+
+      <Wallpaper>
         <KeyboardAvoidingView behavior="padding" style={styles.container}>
           <UserInput
             placeholder="Email"
@@ -28,7 +32,7 @@ export default class Register extends Component {
             autoCorrect={false}
             style={styles.input}
           />
-           <UserInput
+          <UserInput
             secureTextEntry={true}
             placeholder="Last name"
             returnKeyType={'go'}
@@ -44,11 +48,18 @@ export default class Register extends Component {
             autoCorrect={false}
             style={styles.input}
           />
-      </KeyboardAvoidingView>
-  
 
-        </Wallpaper>
-        
+        </KeyboardAvoidingView>
+
+        <ButtonSubmit title={'REGISTER'} Submit = {this.Submit}/>
+        <View style={styles.text_container}>
+          <TouchableOpacity onPress={() => { this.props.navigation.navigate('Login') }}>
+            <Text style={styles.text}>Back</Text>
+          </TouchableOpacity>
+        </View>
+
+      </Wallpaper>
+
     );
   }
 }
@@ -56,11 +67,22 @@ export default class Register extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 6,
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 150,
   },
-  input:{
+  input: {
     marginTop: 10,
+  },
+  text_container: {
+    flex: 1,
+    top: -110,
+    marginRight: 40,
+    alignItems: 'flex-end',
+  },
+  text: {
+    color: 'white',
+    backgroundColor: 'transparent',
   }
 });

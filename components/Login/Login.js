@@ -8,7 +8,48 @@ import SignupSection from './SignupSection';
 import usernameImg from '../../assets/images/username.png';
 import passwordImg from '../../assets/images/password.png';
 
+const URL = "http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site04/WebService.asmx";
+
 export default class Login extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      email: 'orhay@g2mail.com',
+      password: '1234'
+    }
+  }
+  Submit = () =>{
+    return new Promise( (resolve , reject)=>{
+      fetch(URL + '/Login', {
+        body: JSON.stringify({
+          email: this.state.email,
+          password: this.state.password
+        }),
+        headers: {
+          'content-type': 'application/json; charset=UTF-8'
+        },
+        method: 'POST'
+        
+      })
+      .then( (res) =>{ return res.json()})
+      .then( (json) =>{
+
+        if(json.d != null){
+          resolve(json)
+        }else{
+          reject("email or password was incorrect");
+        }
+      })
+      .catch( (err)=>{
+        console.log(err);
+        reject(err);
+      })
+    })
+    
+    
+  }
+
   render() {
     return (
       <Wallpaper>
@@ -34,7 +75,7 @@ export default class Login extends Component {
         />
       </KeyboardAvoidingView>
         <SignupSection navigation={this.props.navigation}/>
-        <ButtonSubmit title={'LOGIN'} />
+        <ButtonSubmit title={'LOGIN'} Submit = {this.Submit}/>
 
       </Wallpaper>
     );

@@ -17,8 +17,8 @@ const DEVICE_WIDTH = Dimensions.get('window').width;
 
 
 export default class ButtonSubmit extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       isLoading: false,
@@ -39,15 +39,27 @@ export default class ButtonSubmit extends Component {
       easing: Easing.linear,
     }).start();
 
-    setTimeout(() => {
-      this._onGrow();
-    }, 2000);
 
-    setTimeout(() => {
-      this.setState({isLoading: false});
-      this.buttonAnimated.setValue(0);
-      this.growAnimated.setValue(0);
-    }, 2300);
+      this.props.Submit()
+      .then( ()=>{
+        this._onGrow();
+      })
+      .catch( (err)=>{
+        Alert.alert(
+          '',
+          err,
+          [
+            {text: 'OK'},
+          ],
+          { cancelable: false }
+        )
+        this.setState({isLoading: false});
+        this.buttonAnimated.setValue(0);
+        this.growAnimated.setValue(0);
+      })
+       
+
+ 
   }
 
   _onGrow() {
@@ -56,6 +68,12 @@ export default class ButtonSubmit extends Component {
       duration: 200,
       easing: Easing.linear,
     }).start();
+    setTimeout(() => {
+      this.setState({isLoading: false});
+      this.buttonAnimated.setValue(0);
+      this.growAnimated.setValue(0);
+      //this.props.navigation.navigate("Home");
+    }, 300);
   }
 
   render() {
@@ -70,7 +88,9 @@ export default class ButtonSubmit extends Component {
 
     return (
       <View style={styles.container}>
-      
+       <Animated.View
+            style={[styles.circle, {transform: [{scale: changeScale}]}]}
+          />
         <Animated.View style={{width: changeWidth}}>
           <TouchableOpacity
             style={styles.button}
@@ -82,9 +102,7 @@ export default class ButtonSubmit extends Component {
               <Text style={styles.text}>{this.props.title}</Text>
             }
           </TouchableOpacity>
-          <Animated.View
-            style={[styles.circle, {transform: [{scale: changeScale}]}]}
-          />
+         
         </Animated.View>
 
       </View>
@@ -98,7 +116,6 @@ const styles = StyleSheet.create({
     top: -95,
     alignItems: 'center',
     justifyContent: 'flex-start',
-    zIndex: 90,
   },
   button: {
     alignItems: 'center',
@@ -106,18 +123,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#F035E0',
     height: 40,
     borderRadius: 20,
-    zIndex: 100,
   },
   circle: {
     height: 40,
     width: 40,
-    marginTop: -40,
+    marginTop: 0,
     borderWidth: 1,
     borderColor: '#F035E0',
     borderRadius: 100,
     alignSelf: 'center',
     backgroundColor: '#F035E0',
-    zIndex: 99,
+    position: 'absolute',
 
   },
   text: {
