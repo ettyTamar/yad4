@@ -12,14 +12,8 @@ using System.Web.Script.Serialization;
 /// </summary>
 /// 
 
-<<<<<<< HEAD
-    static string connectionStr = @"Data Source=ETTY\SQLEXPRESS;Initial Catalog=NirProject;Integrated Security=True";
-    static DataSet ds = new DataSet();
-    static SqlDataAdapter adtr = null;
-=======
     public static class SQL
     {
->>>>>>> ac87ff27072dfefa57567536453ba8bf57f45834
 
         static string connectionStr = ConfigurationManager.ConnectionStrings["LIVEDNS"].ConnectionString;
         static DataSet ds = new DataSet();
