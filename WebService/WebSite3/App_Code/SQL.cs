@@ -12,7 +12,7 @@ using System.Web.Script.Serialization;
 public static class SQL
 {
 
-    static string connectionStr = @"Data Source=DESKTOP-7DK9IUH\SQLEXPRESS;Initial Catalog=NirProject;Integrated Security=True";
+    static string connectionStr = @"Data Source=ETTY\SQLEXPRESS;Initial Catalog=NirProject;Integrated Security=True";
     static DataSet ds = new DataSet();
     static SqlDataAdapter adtr = null;
 
