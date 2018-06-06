@@ -60,15 +60,23 @@ select * from Users_Items
 WHERE(Users_Items.Email LIKE @Email)
 go
 
-create view ShowAll
-as 
-SELECT TOP (100) PERCENT dbo.Items.ItemName, dbo.Items.price, dbo.Items.Phone, dbo.Items.ItemLocattion, dbo.Items.ItemDscription, dbo.Items.ItemImg, dbo.Catagory.CatagoryName
-FROM dbo.Catagory INNER JOIN
-dbo.Items ON dbo.Catagory.CatagoryID = dbo.Items.ItemCatagory
-ORDER BY dbo.Items.ItemID DESC
+
+
+
+create proc Register(
+@Email nvarchar(200),
+@Fname nvarchar(200),
+@Lname nvarchar(200),
+@pass nvarchar(200)
+)
+as
+if not exists (select UserID from Users where Email = @Email)
+begin
+insert into Users(Email , UPassword , UName_First , UName_Last) values (@Email , @pass , @Fname , @Lname) 
+end
+else
+select 'Email Address already taken'
+
 go
 
-select * from ShowAll
-go
-
-
+exec Register 'yakiry@gmail.com', 'Yakir', 'Bogi', '12345'
