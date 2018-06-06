@@ -16,6 +16,7 @@ export default class UserInput extends Component {
           returnKeyType={this.props.returnKeyType}
           placeholderTextColor="white"
           underlineColorAndroid="transparent"
+          onChangeText = { (text) => {this.props.onChangeText(text)}}
         />
       </View>
     );

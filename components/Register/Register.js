@@ -6,13 +6,54 @@ import usernameImg from '../../assets/images/username.png';
 import passwordImg from '../../assets/images/password.png';
 import ButtonSubmit from '../Form/ButtonSubmit';
 
+const URL = "http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site04/WebService.asmx";
 
 export default class Register extends Component {
 
-  Submit = () =>{
-    console.log("REGISTERED");
-    
+constructor(props){
+  super(props)
+  this.state = {
+    email: '',
+    pass: '',
+    name: '',
+    last_name: ''
   }
+}
+
+Submit = () =>{
+  return new Promise( (resolve , reject)=>{
+    fetch(URL + '/Register', {
+      body: JSON.stringify({
+        email: this.state.email,
+        fname: this.state.name,
+        lname: this.state.last_name,
+        password: this.state.pass
+      }),
+      headers: {
+        'content-type': 'application/json; charset=UTF-8'
+      },
+      method: 'POST'
+      
+    })
+    .then( (res) =>{ return res.json()})
+    .then( (json) =>{
+
+      
+      if(json.d != 'Email Adress already taken'){
+        resolve(json)
+      }else{
+        reject(json.d);
+      }
+    })
+    .catch( (err)=>{
+      console.log(err);
+      reject(err);
+    })
+  })
+  
+  
+}
+
   render() {
     return (
 
@@ -23,22 +64,23 @@ export default class Register extends Component {
             autoCapitalize={'none'}
             returnKeyType={'go'}
             autoCorrect={false}
+            onChangeText = {(text)=>{this.setState({email: text.toString()})}}
           />
           <UserInput
-            secureTextEntry={true}
             placeholder="First name"
             returnKeyType={'go'}
             autoCapitalize={'none'}
             autoCorrect={false}
             style={styles.input}
+            onChangeText = {(text)=>{this.setState({name: text.toString()})}}
           />
           <UserInput
-            secureTextEntry={true}
             placeholder="Last name"
             returnKeyType={'go'}
             autoCapitalize={'none'}
             autoCorrect={false}
             style={styles.input}
+            onChangeText = {(text)=>{this.setState({last_name: text.toString()})}}
           />
           <UserInput
             secureTextEntry={true}
@@ -47,6 +89,7 @@ export default class Register extends Component {
             autoCapitalize={'none'}
             autoCorrect={false}
             style={styles.input}
+            onChangeText = {(text)=>{this.setState({pass: text.toString()})}}
           />
 
         </KeyboardAvoidingView>

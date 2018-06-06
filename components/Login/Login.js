@@ -63,18 +63,21 @@ export default class Login extends Component {
           returnKeyType={'go'}
           autoCorrect={false}
           style={styles.input}
+          onChangeText = {(text)=>{this.setState({email: text.toString()})}}
         />
         <UserInput
+          secureTextEntry={true}
           source={passwordImg}
           secureTextEntry={true}
           placeholder="Password"
           returnKeyType={'done'}
           autoCapitalize={'none'}
           autoCorrect={false}
+          onChangeText = {(text)=>{this.setState({password: text.toString()})}}
 
         />
       </KeyboardAvoidingView>
-        <SignupSection navigation={this.props.navigation}/>
+        <SignupSection/>
         <ButtonSubmit title={'LOGIN'} Submit = {this.Submit}/>
 
       </Wallpaper>
