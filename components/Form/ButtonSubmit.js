@@ -12,11 +12,12 @@ import {
 } from 'react-native';
 
 import spinner from '../../assets/images/loading.gif';
+import { withNavigation } from 'react-navigation';
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 
 
-export default class ButtonSubmit extends Component {
+class ButtonSubmit extends Component {
   constructor(props) {
     super(props);
 
@@ -41,8 +42,8 @@ export default class ButtonSubmit extends Component {
 
 
       this.props.Submit()
-      .then( ()=>{
-        this._onGrow();
+      .then( (json)=>{
+        this._onGrow(json);
       })
       .catch( (err)=>{
         Alert.alert(
@@ -62,7 +63,7 @@ export default class ButtonSubmit extends Component {
  
   }
 
-  _onGrow() {
+  _onGrow(json) {
     Animated.timing(this.growAnimated, {
       toValue: 1,
       duration: 200,
@@ -72,8 +73,10 @@ export default class ButtonSubmit extends Component {
       this.setState({isLoading: false});
       this.buttonAnimated.setValue(0);
       this.growAnimated.setValue(0);
-      //this.props.navigation.navigate("Home");
+
+      this.props.navigation.navigate("Home" , {user: json.d});
     }, 300);
+    
   }
 
   render() {
@@ -146,3 +149,4 @@ const styles = StyleSheet.create({
   },
 });
 
+export default withNavigation(ButtonSubmit);
