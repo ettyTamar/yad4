@@ -66,4 +66,22 @@ using System.Web.Script.Serialization;
 
             return new JavaScriptSerializer().Serialize(User);
         }
+
+    static public string Register(string email, string password , string name, string last_name)
+    {
+        SqlConnection con = new SqlConnection(connectionStr);
+        adtr = new SqlDataAdapter($"Register", con);
+        adtr.SelectCommand.CommandType = CommandType.StoredProcedure;
+        adtr.SelectCommand.Parameters.Add(new SqlParameter("Email", email));
+        adtr.SelectCommand.Parameters.Add(new SqlParameter("Fname", name));
+        adtr.SelectCommand.Parameters.Add(new SqlParameter("Lname", last_name));
+        adtr.SelectCommand.Parameters.Add(new SqlParameter("pass", password));
+
+        DataSet errorsSet = new DataSet();
+        adtr.Fill(errorsSet, "Errors");
+
+        if (ds.Tables["Errors"].Rows.Count == 0)
+            return Login(email , password);
+        return ds.Tables["User_Items"].Rows[0][0].ToString();
+    }
     }
