@@ -74,7 +74,7 @@ class ButtonSubmit extends Component {
       this.buttonAnimated.setValue(0);
       this.growAnimated.setValue(0);
 
-      this.props.navigation.navigate("Home" , {user: json.d});
+      this.props.navigation.navigate("App" , {user: json.d});
     }, 300);
     
   }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native';
 import Wallpaper from '../Wallpaper';
 import UserInput from '../Form/UserInput';
 import usernameImg from '../../assets/images/username.png';
@@ -64,6 +64,7 @@ Submit = () =>{
             autoCapitalize={'none'}
             returnKeyType={'go'}
             autoCorrect={false}
+            style={styles.input}
             onChangeText = {(text)=>{this.setState({email: text.toString()})}}
           />
           <UserInput
@@ -108,15 +109,18 @@ Submit = () =>{
 }
 
 
+const DEVICE_HEIGHT = Dimensions.get('window').height;
+
 const styles = StyleSheet.create({
   container: {
     flex: 6,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 150,
+    marginBottom: 40,
   },
   input: {
-    marginTop: 10,
+    marginBottom: 10,
   },
   text_container: {
     flex: 1,
