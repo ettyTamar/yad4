@@ -6,7 +6,10 @@ import {withNavigation} from 'react-navigation';
 const Nav = createDrawerNavigator({
     Home: {
       screen: Home,
-    }
+    },
+    Search:{
+    screen: Search,
+    },
   },
     {
         drawerWidth: 150,
