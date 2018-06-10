@@ -1,6 +1,7 @@
 import React from 'react';
 import {createDrawerNavigator} from 'react-navigation';
 import Home from './Home/Home';
+import Search from './Search/Search';
 import {withNavigation} from 'react-navigation';
 
 const Nav = createDrawerNavigator({
@@ -9,7 +10,7 @@ const Nav = createDrawerNavigator({
     },
     Search:{
     screen: Search,
-    },
+    }
   },
     {
         drawerWidth: 150,
