@@ -10,6 +10,9 @@ const Nav = createDrawerNavigator({
     },
     Search:{
     screen: Search,
+    },
+    About:{
+    screen: About,
     }
   },
     {
