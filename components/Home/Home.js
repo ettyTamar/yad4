@@ -4,6 +4,7 @@ import { Icon } from 'react-native-elements'
 import { Constants } from 'expo';
 import Item from './Item';
 import Menu from '../MenuButton';
+import Wallpaper from '../Wallpaper';
 
 const URL = "http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site04/WebService.asmx";
 
@@ -50,7 +51,7 @@ export default class Home extends Component {
   render() {
 
     return (
-
+      <Wallpaper>
       <View style={{direction: 'rtl'}}>
         <Menu navigation = {this.props.navigation}/>
         <FlatList
@@ -66,6 +67,7 @@ export default class Home extends Component {
   
         />
       </View>
+      </Wallpaper>
     );
   }
 }

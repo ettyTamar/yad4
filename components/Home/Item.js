@@ -6,14 +6,14 @@ export default class Item extends Component {
     render() {
         return (
 
-            <View  style={{marginBottom: 10 , direction: "rtl"}}>
-            <Text style={{marginRight: 50}}>{this.props.ItemData.CatagoryName } : {this.props.ItemData.ItemName}</Text>
-                <TouchableOpacity>
+            <View  style={{marginTop: 20 , direction: "rtl"}}>
+            <TouchableOpacity>
                     <View style={styles.container}>
                         
                         <Image
-                            style={{ width: 150, height: 150 }}
+                            style={{ width: 150, height: 150, borderRadius: 10 }}
                             source={{ uri: 'http://via.placeholder.com/150x150' }} />
+                        <Text style={styles.title}>{this.props.ItemData.CatagoryName }, {this.props.ItemData.ItemName}</Text>
                         <Text style= {styles.location}>מיקום: {this.props.ItemData.ItemLocation}</Text>
                         <View style= {styles.description}> 
                             <Text numberOfLines= {6} ellipsizeMode='tail'>
@@ -34,11 +34,16 @@ const DEVICE_WIDTH = Dimensions.get('window').width;
 const DEVICE_HEIGHT = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
+    title: {
+        position: 'absolute',
+        right: 20,
+        top: 20
+    },
     container: {
-        borderColor: 'black',
-        borderWidth: 3,
+        borderRadius: 10,
         width: DEVICE_WIDTH - 20,
-        marginLeft: 10,
+        marginLeft: 5,
+        backgroundColor: '#edeff2'
     },
     location:{
         
@@ -57,7 +62,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: 150,
         top: 40,
-        width: 230,
+        width: 220,
         height: 100,
     
     }

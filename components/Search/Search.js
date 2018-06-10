@@ -1,10 +1,15 @@
 import React, { Component } from "react";
-import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TextInput } from "react-native";
 import { Dimensions } from "react-native";
+import Input from '../Form/UserInput';
+import Wallpaper from '../Wallpaper';
 
 export default class Search extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      searchText: ''
+    }
   }
 
   static navigationOptions = { drawerLabel: "Search" };
@@ -18,32 +23,31 @@ export default class Search extends Component {
       });
     };
 
-
-
-        setSearchText = (text) => {
-      this.setState({ searchText: text });
-    };
+componentDidMount(){
+  console.log(this.props.navigation);
+  
+}
 
   render() {
-    <TextInput
-      style={styles.searchBar}
-      value={this.state.searchText}
-      onChangeText={this.setSearchText}
-      placeholder="Search"
-    />
+    return(
+      <Wallpaper>
+      <Input
+          placeholder="Search"
+          autoCapitalize={'none'}
+          returnKeyType={'go'}
+          autoCorrect={false}
+          style={styles.input}
+          onChangeText = {(text)=>{this.setState({searchText: text.toString()})}}
+        />
+    </Wallpaper>
+
+    );
   }
 
 }
 
 const styles = StyleSheet.create({
-  searchBar: {
-    flex: 1,
-    alignItems: "center"
-  },
-  paddingLeft: 30,
-  fontSize: 22,
-  height: 10,
-  flex: 0.1,
-  borderWidth: 9,
-  borderColor: "#E4E4E4"
+  input:{
+    marginTop: 50,
+  }
 });
