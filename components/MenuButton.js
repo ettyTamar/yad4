@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { View, StyleSheet,TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements'
 import {Dimensions} from 'react-native';
+import { withNavigation } from 'react-navigation';
 
-export default class MenuButton extends Component {
+ class MenuButton extends Component {
     render() {
         return (
             <View>
-                <TouchableOpacity onPress={this.props.toggleDrawer} style={styles.icon}>
+                <TouchableOpacity onPress={this.props.navigation.toggleDrawer} style={styles.icon}>
                 <Icon
                 size= {40}
                     name='menu' />
@@ -29,3 +30,5 @@ const styles = StyleSheet.create({
 
     }
 })
+
+export default withNavigation(MenuButton)

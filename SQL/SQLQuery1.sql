@@ -79,4 +79,3 @@ select 'Email Address already taken'
 
 go
 
-exec Register 'yakiry@gmail.com', 'Yakir', 'Bogi', '12345'
