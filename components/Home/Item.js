@@ -6,19 +6,21 @@ export default class Item extends Component {
     render() {
         return (
 
-            <View  style={{marginBottom: 10}}>
-            <Text>TITLE</Text>
+            <View  style={{marginBottom: 10 , direction: "rtl"}}>
+            <Text style={{marginRight: 50}}>{this.props.ItemData.CatagoryName } : {this.props.ItemData.ItemName}</Text>
                 <TouchableOpacity>
                     <View style={styles.container}>
                         
                         <Image
                             style={{ width: 150, height: 150 }}
                             source={{ uri: 'http://via.placeholder.com/150x150' }} />
-                        <Text style= {styles.location}>LOCATION</Text>
+                        <Text style= {styles.location}>מיקום: {this.props.ItemData.ItemLocation}</Text>
                         <View style= {styles.description}> 
-                            <Text numberOfLines= {6} ellipsizeMode='tail'>SADaSDJASDBAS:KJDHAS"DHnSKAL:DNHASJ:LDBASJADaSDJASDBAS:KJDHAS"DHnSKAL:DNHASJ:LDBASJKLDBASHVAHVASADaSDJASDBAS:KJDHAS"DHnSKAL:DNHASJ:LDBASJKLDBASHVAHVASADaSDJASDBAS:KJDHAS"DHnSKAL:DNHASJ:LDBASJKLDBASHVAHVASKLDBASHVAHVASHLDVBASL:KSADaSDJASDBAS:KJDHAS"DHnSKAL:DNHASJ:LDBASJKLDBASHVAHVASHLDVBASL:K </Text>
+                            <Text numberOfLines= {6} ellipsizeMode='tail'>
+                                {this.props.ItemData.ItemDscription}
+                            </Text>
                         </View>
-                        <Text style={styles.price}>1000000 &#8362;</Text>
+                        <Text style={styles.price}>{this.props.ItemData.price} &#8362;</Text>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -41,20 +43,20 @@ const styles = StyleSheet.create({
     location:{
         
             position: 'absolute',
-            left: 150,
+            right: 20,
             top: 0
         
     },
     price:{
         position: 'absolute',
-        right: 10,
+        left: 150,
         bottom: 10
     },
     description:{
         flex: 1,
         position: 'absolute',
         left: 150,
-        top: 20,
+        top: 40,
         width: 230,
         height: 100,
     

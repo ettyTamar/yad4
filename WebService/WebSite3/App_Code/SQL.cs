@@ -16,7 +16,6 @@ public static class SQL
 {
 
     static string connectionStr = ConfigurationManager.ConnectionStrings["LIVEDNS"].ConnectionString;
-    static DataSet ds = new DataSet();
     static SqlDataAdapter adtr = null;
 
 
@@ -29,7 +28,7 @@ public static class SQL
         adtr.SelectCommand.Parameters.Add(new SqlParameter("Password", password));
         adtr.SelectCommand.Parameters.Add(new SqlParameter("Email", email));
 
-        ds.Clear();
+        DataSet ds = new DataSet();
         adtr.Fill(ds, "User");
 
 
@@ -85,4 +84,14 @@ public static class SQL
         return errorsSet.Tables["Errors"].Rows[0][0].ToString();
     }
     
+    static public DataSet GetAllItems()
+    {
+        DataSet SQLItems = new DataSet();
+        SqlConnection con = new SqlConnection(connectionStr);
+        adtr = new SqlDataAdapter($"SELECT * FROM site04.GetAllItems", con);
+        adtr.Fill(SQLItems, "Items");
+
+        return SQLItems;
+
+    }
 }

@@ -48,7 +48,7 @@ class ButtonSubmit extends Component {
       .catch( (err)=>{
         Alert.alert(
           '',
-          err,
+          err.toString(),
           [
             {text: 'OK'},
           ],
