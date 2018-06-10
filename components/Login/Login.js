@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {KeyboardAvoidingView , StyleSheet}  from 'react-native';
+import { KeyboardAvoidingView, StyleSheet } from 'react-native';
 import Logo from '../Logo';
 import UserInput from '../Form/UserInput';
 import Wallpaper from '../Wallpaper';
@@ -12,15 +12,15 @@ const URL = "http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site04/W
 
 export default class Login extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       email: 'orhay@g2mail.com',
       password: '1234'
     }
   }
-  Submit = () =>{
-    return new Promise( (resolve , reject)=>{
+  Submit = () => {
+    return new Promise((resolve, reject) => {
       fetch(URL + '/Login', {
         body: JSON.stringify({
           email: this.state.email,
@@ -30,55 +30,59 @@ export default class Login extends Component {
           'content-type': 'application/json; charset=UTF-8'
         },
         method: 'POST'
-        
-      })
-      .then( (res) =>{ return res.json()})
-      .then( (json) =>{
 
-        if(json.d != null){
-          resolve(json)
-        }else{
-          reject("email or password was incorrect");
-        }
       })
-      .catch( (err)=>{
-        console.log(err);
-        reject(err);
-      })
+        .then((res) => { return res.json() })
+        .then((json) => {
+          console.log(json.d);
+
+          if (json.d != null) {
+            resolve(json)
+          } else {
+            reject("email or password was incorrect");
+          }
+
+
+        })
+        .catch((err) => {
+          console.log(err);
+          reject(err);
+        })
+
     })
-    
-    
+
+
   }
 
   render() {
     return (
       <Wallpaper>
-  
+
         <Logo />
         <KeyboardAvoidingView behavior="padding" style={styles.container}>
-        <UserInput
-          source={usernameImg}
-          placeholder="Email"
-          autoCapitalize={'none'}
-          returnKeyType={'go'}
-          autoCorrect={false}
-          style={styles.input}
-          onChangeText = {(text)=>{this.setState({email: text.toString()})}}
-        />
-        <UserInput
-          secureTextEntry={true}
-          source={passwordImg}
-          secureTextEntry={true}
-          placeholder="Password"
-          returnKeyType={'done'}
-          autoCapitalize={'none'}
-          autoCorrect={false}
-          onChangeText = {(text)=>{this.setState({password: text.toString()})}}
+          <UserInput
+            source={usernameImg}
+            placeholder="Email"
+            autoCapitalize={'none'}
+            returnKeyType={'go'}
+            autoCorrect={false}
+            style={styles.input}
+            onChangeText={(text) => { this.setState({ email: text.toString() }) }}
+          />
+          <UserInput
+            secureTextEntry={true}
+            source={passwordImg}
+            secureTextEntry={true}
+            placeholder="Password"
+            returnKeyType={'done'}
+            autoCapitalize={'none'}
+            autoCorrect={false}
+            onChangeText={(text) => { this.setState({ password: text.toString() }) }}
 
-        />
-      </KeyboardAvoidingView>
-        <SignupSection/>
-        <ButtonSubmit title={'LOGIN'} Submit = {this.Submit}/>
+          />
+        </KeyboardAvoidingView>
+        <SignupSection />
+        <ButtonSubmit title={'LOGIN'} Submit={this.Submit} />
 
       </Wallpaper>
     );
@@ -92,7 +96,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-  input:{
+  input: {
     marginBottom: 15
   }
 });
