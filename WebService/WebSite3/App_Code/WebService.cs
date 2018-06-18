@@ -59,7 +59,7 @@ public class WebService : System.Web.Services.WebService
             ItemsList.Add(Item);
         }
 
-        return "{"+ new JavaScriptSerializer().Serialize(ItemsList) + "}";
+        return new JavaScriptSerializer().Serialize(ItemsList);
 
     }
 }
