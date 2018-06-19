@@ -13,8 +13,8 @@ export default class Item extends Component {
                         <Image
                             style={{ width: 150, height: 150, borderRadius: 10 }}
                             source={{ uri: 'http://via.placeholder.com/150x150' }} />
-                        <Text style={styles.title}>{this.props.ItemData.CatagoryName }, {this.props.ItemData.ItemName}</Text>
                         <Text style= {styles.location}>מיקום: {this.props.ItemData.ItemLocation}</Text>
+                        <Text style={styles.title}>{this.props.ItemData.CatagoryName }, {this.props.ItemData.ItemName}</Text>
                         <View style= {styles.description}> 
                             <Text numberOfLines= {6} ellipsizeMode='tail'>
                                 {this.props.ItemData.ItemDscription}
@@ -36,8 +36,9 @@ const DEVICE_HEIGHT = Dimensions.get('window').height;
 const styles = StyleSheet.create({
     title: {
         position: 'absolute',
-        right: 20,
-        top: 20
+        paddingRight: 20,
+        right: 0,
+        top: 30,
     },
     container: {
         borderRadius: 10,
@@ -48,8 +49,12 @@ const styles = StyleSheet.create({
     location:{
         
             position: 'absolute',
-            right: 20,
-            top: 0
+            paddingRight: 20,
+            right: 0,
+            top: 0,
+            borderBottomColor: 'black',
+            borderBottomWidth: 1,
+            width: 242
         
     },
     price:{
@@ -58,10 +63,9 @@ const styles = StyleSheet.create({
         bottom: 10
     },
     description:{
-        flex: 1,
         position: 'absolute',
         left: 150,
-        top: 40,
+        top: 50,
         width: 220,
         height: 100,
     

@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput } from "react-native";
 import { Dimensions } from "react-native";
 import UserInput from '../Form/UserInput';
 import Wallpaper from '../Wallpaper';
+import Menu from '../MenuButton';
 
 export default class Search extends Component {
   constructor(props) {
@@ -17,6 +18,8 @@ export default class Search extends Component {
   render() {
     return(
     <Wallpaper >
+      
+      <Menu navigation = {this.props.navigation}/>
       <UserInput
         placeholder="Search"
         autoCapitalize={'none'}
@@ -26,8 +29,12 @@ export default class Search extends Component {
         onChangeText={(text) => { this.setState({ searchText: text.toString() }) }}
       />
     </Wallpaper>
+<<<<<<< HEAD
     );
   }
+=======
+    )}
+>>>>>>> 4a9018bac9177eac880bdccbaf6ad8d19c11a0e2
 }
 
 const styles = StyleSheet.create({
