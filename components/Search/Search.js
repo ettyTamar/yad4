@@ -15,6 +15,7 @@ export default class Search extends Component {
   static navigationOptions = { drawerLabel: "Search" };
 
   render() {
+    return(
     <Wallpaper >
       <UserInput
         placeholder="Search"
@@ -24,7 +25,8 @@ export default class Search extends Component {
         style={styles.input}
         onChangeText={(text) => { this.setState({ searchText: text.toString() }) }}
       />
-    </Wallpaper>;
+    </Wallpaper>
+    );
   }
 }
 

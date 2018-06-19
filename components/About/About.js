@@ -8,7 +8,7 @@ export default class About extends Component {
   static navigationOptions = { drawerLabel: "About" };
 
   render() {
-    return
+    return(
     <Wallpaper>
       <View style={styles.container}>
         <Text style={styles.text}>
@@ -21,7 +21,8 @@ export default class About extends Component {
           Want to buy? contect us.
         </Text>
       </View>
-    </Wallpaper>;
+    </Wallpaper>
+    );
   }
 }
 
