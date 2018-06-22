@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Text, Button, FlatList, RefreshControl } from 'react-native';
 import { Icon } from 'react-native-elements'
 import { Constants } from 'expo';
-import Item from './Item';
+import Item from './ItemPrev';
 import Menu from '../MenuButton';
 import Wallpaper from '../Wallpaper';
 
-const URL = "http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site04/WebService.asmx";
-
+import handler from '../Handler';
+const Handler = new handler();
 export default class Home extends Component {
 
 
@@ -28,20 +28,14 @@ export default class Home extends Component {
 
   getUpdate = () => {
     this.setState({refreshing: true})
-    fetch("http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site04/WebService.asmx/GetAllItems", {
-      headers: {
-        'content-type': 'application/json; charset=UTF-8'
-      },
-      method: 'POST'
-    })
-    .then( res => res.json())
-    .then( (json) =>{
-      this.Items = JSON.parse(json.d);
+    Handler.GetItems()
+    .then((res)=>{
+      this.Items = res;
       this.setState({refreshing: false})
     })
-    .catch( (err) => {
-      console.log( err );
-    })
+    .catch((err)=>{console.error(err)})
+    
+  
   }
 
   componentDidMount(){
@@ -71,16 +65,3 @@ export default class Home extends Component {
     );
   }
 }
-
-
-const styles = StyleSheet.create({
-  container: {
-    marginBottom: 20,
-  },
-  icon: {
-    position: 'absolute',
-    top: 50,
-    right: 0
-  },
-
-});

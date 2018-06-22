@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import {Dimensions} from 'react-native';
+import {withNavigation} from 'react-navigation';
 
-export default class Item extends Component {
+
+
+
+class Item extends Component {
+
     render() {
         return (
 
             <View  style={{marginTop: 20 , direction: "rtl"}}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={ ()=>{ this.props.navigation.navigate('Item' , {data : this.props.ItemData})}}>
                     <View style={styles.container}>
                         
                         <Image
@@ -28,7 +33,7 @@ export default class Item extends Component {
         );
     }
 }
-
+export default withNavigation(Item);
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const DEVICE_HEIGHT = Dimensions.get('window').height;
@@ -71,3 +76,5 @@ const styles = StyleSheet.create({
     
     }
 })
+
+

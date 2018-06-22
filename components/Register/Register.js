@@ -5,8 +5,8 @@ import UserInput from '../Form/UserInput';
 import usernameImg from '../../assets/images/username.png';
 import passwordImg from '../../assets/images/password.png';
 import ButtonSubmit from '../Form/ButtonSubmit';
-
-const URL = "http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site04/WebService.asmx";
+import handler from '../Handler';
+const Handler = new handler();
 
 export default class Register extends Component {
 
@@ -21,37 +21,7 @@ constructor(props){
 }
 
 Submit = () =>{
-  return new Promise( (resolve , reject)=>{
-    fetch(URL + '/Register', {
-      body: JSON.stringify({
-        email: this.state.email,
-        fname: this.state.name,
-        lname: this.state.last_name,
-        password: this.state.pass
-      }),
-      headers: {
-        'content-type': 'application/json; charset=UTF-8'
-      },
-      method: 'POST'
-      
-    })
-    .then( (res) =>{ return res.json()})
-    .then( (json) =>{
-
-      
-      if(json.d != 'Email Adress already taken'){
-        resolve(json)
-      }else{
-        reject(json.d);
-      }
-    })
-    .catch( (err)=>{
-      console.log(err);
-      reject(err);
-    })
-  })
-  
-  
+  return Handler.Register(this.state.email, this.state.name, this.state.last_name, this.state.pass)
 }
 
   render() {
