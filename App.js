@@ -5,7 +5,7 @@ import Register from './components/Register/Register';
 import { createSwitchNavigator } from 'react-navigation';
 
 export default createSwitchNavigator({
-  Login: App,
+  Login: Login,
   App: App,
   Register: Register
 });

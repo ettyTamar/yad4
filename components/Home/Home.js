@@ -42,6 +42,8 @@ export default class Home extends Component {
     this.getUpdate();
   }
 
+  _keyExtractor = (item, index) => index.toString();
+
   render() {
 
     return (
@@ -51,6 +53,7 @@ export default class Home extends Component {
         <FlatList
         style={{marginTop: 30}}
           data={this.Items}
+          keyExtractor={this._keyExtractor}
           renderItem={({ item , index }) => <Item key={index} ItemData = {item}/>}
           refreshControl={
             <RefreshControl

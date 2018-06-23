@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     container: {
         borderRadius: 10,
         width: DEVICE_WIDTH - 20,
-        marginLeft: 5,
+        alignSelf: 'center',
         backgroundColor: '#edeff2'
     },
     location:{
