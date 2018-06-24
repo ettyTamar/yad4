@@ -94,4 +94,24 @@ public static class SQL
         return SQLItems;
 
     }
+
+
+    
+    static public string GetCatagories()
+    {
+        SqlConnection con = new SqlConnection(connectionStr);
+        adtr = new SqlDataAdapter("SELECT CatagoryName from Catagory", con);
+      
+
+        DataSet ds = new DataSet();
+        adtr.Fill(ds, "Catagories");
+
+        var Catagories = new List<string>();
+        foreach (DataColumn col in ds.Tables["Catagories"].Rows[0].Table.Columns)
+        {
+            Catagories.Add(ds.Tables["Catagories"].Rows[0][col].ToString());
+        }
+        return new JavaScriptSerializer().Serialize(Catagories);
+    }
+    
 }

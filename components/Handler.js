@@ -5,6 +5,8 @@ const WebService = 'http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/s
 export default class Handler {
 
 
+
+
     Register(email ,name , last_name, pass ){
         return new Promise( (resolve , reject)=>{
             fetch(WebService + '/Register', {
@@ -93,4 +95,22 @@ export default class Handler {
     }
 
 
+    GetCatagories(){
+      return new Promise( (resolve , reject) =>{
+        fetch(`${WebService}/GetCatagories`, {
+            headers: {
+                'content-type': 'application/json; charset=UTF-8'
+            },
+            method: 'POST'
+        })
+            .then(res => res.json())
+            .then((json) => {
+                resolve(JSON.parse(json.d));
+               
+            })
+            .catch((err) => {
+                reject(err)
+            })
+        })
+    }
 };

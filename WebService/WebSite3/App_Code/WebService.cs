@@ -62,6 +62,17 @@ public class WebService : System.Web.Services.WebService
         return new JavaScriptSerializer().Serialize(ItemsList);
 
     }
+
+
+    
+    [WebMethod]
+    public string GetCatagories()
+    {
+        return SQL.GetCatagories();
+    }
+
+
+
 }
 
 

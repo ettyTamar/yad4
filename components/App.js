@@ -4,13 +4,17 @@ import Home from './Home/Home';
 import Search from './Search/Search';
 import About from './About/About';
 import Item from './Item/Item';
+import Sell from './Sell/Sell';
 
 const Nav = createDrawerNavigator({
   Home: {
-    screen: Home,
+    screen: Sell,
   },
   Search: {
     screen: Search,
+  },
+  Post: {
+    screen: Sell,
   },
   About: {
     screen: About,
