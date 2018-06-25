@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
@@ -93,5 +94,65 @@ public static class SQL
 
         return SQLItems;
 
+    }
+
+
+    
+    static public string GetCatagories()
+    {
+        SqlConnection con = new SqlConnection(connectionStr);
+        adtr = new SqlDataAdapter("SELECT CatagoryName from Catagory", con);
+      
+
+        DataSet ds = new DataSet();
+        adtr.Fill(ds, "Catagories");
+
+        var Catagories = new List<string>();
+        foreach (DataColumn col in ds.Tables["Catagories"].Rows[0].Table.Columns)
+        {
+            Catagories.Add(ds.Tables["Catagories"].Rows[0][col].ToString());
+        }
+        return new JavaScriptSerializer().Serialize(Catagories);
+    }
+    
+    static public string PostItem(string email, string catagory, string name, string phone, string location, string description, int price, string image64) {
+
+
+      
+        string ImgName = $"ImageStorage/{email}/{catagory}/{name}_{price}_image.jpg";
+        String path = HttpContext.Current.Server.MapPath($"~/"); //Path
+
+        //Check if directory exist
+        if (!System.IO.Directory.Exists(path))
+        {
+            System.IO.Directory.CreateDirectory(path); //Create directory if it doesn't exist
+        }
+
+
+        //set the image path
+        string imgPath = Path.Combine(path, ImgName);
+
+        byte[] imageBytes = Convert.FromBase64String(image64);
+
+        File.WriteAllBytes(imgPath, imageBytes);
+
+        string returnPath = $"http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site04/"+ ImgName;
+
+        SqlConnection con = new SqlConnection(connectionStr);
+        adtr = new SqlDataAdapter($"Post", con);
+        adtr.SelectCommand.CommandType = CommandType.StoredProcedure;
+        adtr.SelectCommand.Parameters.Add(new SqlParameter("Email", email));
+        adtr.SelectCommand.Parameters.Add(new SqlParameter("Catagory", catagory));
+        adtr.SelectCommand.Parameters.Add(new SqlParameter("Phone", phone));
+        adtr.SelectCommand.Parameters.Add(new SqlParameter("Location", location));
+        adtr.SelectCommand.Parameters.Add(new SqlParameter("ItemImg", returnPath));
+        adtr.SelectCommand.Parameters.Add(new SqlParameter("Description", description));
+        adtr.SelectCommand.Parameters.Add(new SqlParameter("title", name));
+        adtr.SelectCommand.Parameters.Add(new SqlParameter("Price", price));
+
+        DataSet errorsSet = new DataSet();
+        adtr.Fill(errorsSet);
+
+        return returnPath;
     }
 }

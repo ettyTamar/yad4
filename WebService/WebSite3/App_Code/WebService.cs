@@ -62,6 +62,23 @@ public class WebService : System.Web.Services.WebService
         return new JavaScriptSerializer().Serialize(ItemsList);
 
     }
+
+
+    
+    [WebMethod]
+    public string GetCatagories()
+    {
+        return SQL.GetCatagories();
+    }
+
+   [WebMethod]
+    public string PostItem(string email, string catagory, string name, string phone, string location, string description, int price, string image64)
+    {
+        return SQL.PostItem(email, catagory, name, phone, location, description, price, image64);
+    }
+
+
+
 }
 
 
