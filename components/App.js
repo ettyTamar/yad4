@@ -6,9 +6,10 @@ import About from './About/About';
 import Item from './Item/Item';
 import Sell from './Sell/Sell';
 
+
 const Nav = createDrawerNavigator({
-  Home: {
-    screen: Sell,
+  Home:{
+    screen: Home,
   },
   Search: {
     screen: Search,

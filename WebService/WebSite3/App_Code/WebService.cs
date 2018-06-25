@@ -72,6 +72,11 @@ public class WebService : System.Web.Services.WebService
     }
 
 
+    [WebMethod]
+    public void PostItem(string email , string catagory, string name , string phone , string location , string description , int price, string image64)
+    {
+       SQL.PostItem( email,  catagory,  name,  phone,  location,  description,  price,  image64);
+    }
 
 }
 

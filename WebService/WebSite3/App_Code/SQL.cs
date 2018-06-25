@@ -114,4 +114,26 @@ public static class SQL
         return new JavaScriptSerializer().Serialize(Catagories);
     }
     
+    static public void PostItem(string email, string catagory, string name, string phone, string location, string description, int price, string image64) {
+
+
+        string filePath = $"{email}/{catagory}/{name}_{price}_image.jpg";
+        File.WriteAllBytes(filePath, Convert.FromBase64String(image64));
+
+
+        SqlConnection con = new SqlConnection(connectionStr);
+        adtr = new SqlDataAdapter($"Post", con);
+        adtr.SelectCommand.CommandType = CommandType.StoredProcedure;
+        adtr.SelectCommand.Parameters.Add(new SqlParameter("Email", email));
+        adtr.SelectCommand.Parameters.Add(new SqlParameter("Catagory", catagory));
+        adtr.SelectCommand.Parameters.Add(new SqlParameter("Phone", phone));
+        adtr.SelectCommand.Parameters.Add(new SqlParameter("Location", location));
+        adtr.SelectCommand.Parameters.Add(new SqlParameter("ItemImg", filePath));
+        adtr.SelectCommand.Parameters.Add(new SqlParameter("Description", description));
+        adtr.SelectCommand.Parameters.Add(new SqlParameter("title", name));
+        adtr.SelectCommand.Parameters.Add(new SqlParameter("Price", price));
+
+        DataSet errorsSet = new DataSet();
+        adtr.Fill(errorsSet);
+    }
 }

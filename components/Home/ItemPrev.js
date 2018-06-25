@@ -8,7 +8,9 @@ import {withNavigation} from 'react-navigation';
 
 class Item extends Component {
 
+    
     render() {
+        let image =  this.props.ItemData.ItemImg ? this.props.ItemData.ItemImg : 'http://via.placeholder.com/150x150';
         return (
 
             <View  style={{marginTop: 20 , direction: "rtl"}}>
@@ -17,7 +19,7 @@ class Item extends Component {
                         
                         <Image
                             style={{ width: 150, height: 150, borderRadius: 10 }}
-                            source={{ uri: 'http://via.placeholder.com/150x150' }} />
+                            source={{ uri: image }} />
                         <Text style= {styles.location}>מיקום: {this.props.ItemData.ItemLocation}</Text>
                         <Text style={styles.title}>{this.props.ItemData.CatagoryName }, {this.props.ItemData.ItemName}</Text>
                         <View style= {styles.description}> 

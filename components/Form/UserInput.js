@@ -10,6 +10,7 @@ export default class UserInput extends Component {
         <TextInput
           style={styles.input}
           placeholder={this.props.placeholder}
+          keyboardType={this.props.keyboardType}
           secureTextEntry={this.props.secureTextEntry}
           autoCorrect={this.props.autoCorrect}
           autoCapitalize={this.props.autoCapitalize}

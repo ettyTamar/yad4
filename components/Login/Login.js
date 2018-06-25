@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { KeyboardAvoidingView, StyleSheet } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet,AsyncStorage } from 'react-native';
 import Logo from '../Logo';
 import UserInput from '../Form/UserInput';
 import Wallpaper from '../Wallpaper';
@@ -23,6 +23,20 @@ export default class Login extends Component {
     return Handler.Login(this.state.email , this.state.password)
   }
 
+  
+async componentDidMount(){
+  try {
+    const value = await AsyncStorage.getItem('@yad4:user');
+
+    if (value !== null){
+      this.props.navigation.navigate("App" );
+    }
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
+
   render() {
     return (
       <Wallpaper>
@@ -33,6 +47,7 @@ export default class Login extends Component {
             source={usernameImg}
             placeholder="Email"
             autoCapitalize={'none'}
+            keyboardType={'email-address'}
             returnKeyType={'go'}
             autoCorrect={false}
             style={styles.input}
