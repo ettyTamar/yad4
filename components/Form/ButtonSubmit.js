@@ -9,6 +9,7 @@ import {
   Image,
   Alert,
   View,
+
 } from 'react-native';
 
 import spinner from '../../assets/images/loading.gif';
@@ -74,10 +75,13 @@ class ButtonSubmit extends Component {
       this.buttonAnimated.setValue(0);
       this.growAnimated.setValue(0);
 
-      this.props.navigation.navigate("App" , {user: json.d});
+      
+      this.props.navigation.navigate("App" );
+     
     }, 300);
     
   }
+
 
   render() {
     const changeWidth = this.buttonAnimated.interpolate({

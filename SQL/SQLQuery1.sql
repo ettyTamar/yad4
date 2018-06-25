@@ -44,12 +44,12 @@ go
 
 create view Users_Items
 as
-SELECT dbo.Items.price, dbo.Items.ItemName, 
-dbo.Items.ItemImg, dbo.Items.ItemLocation, 
-dbo.Items.Phone, dbo.Items.ItemDscription, 
-dbo.Catagory.CatagoryName, dbo.Users.Email, dbo.Users.UName_First, dbo.Users.UName_Last 
-FROM dbo.Catagory INNER JOIN dbo.Items ON dbo.Catagory.CatagoryID = dbo.Items.ItemCatagory 
-INNER JOIN dbo.Users ON dbo.Items.UserID = dbo.Users.UserID 
+SELECT site04.Items.price, site04.Items.ItemName, site04.Items.ItemID,
+site04.Items.ItemImg, site04.Items.ItemLocation, 
+site04.Items.Phone, site04.Items.ItemDscription, 
+site04.Catagory.CatagoryName, site04.Users.Email, site04.Users.UName_First, site04.Users.UName_Last 
+FROM site04.Catagory INNER JOIN site04.Items ON site04.Catagory.CatagoryID = site04.Items.ItemCatagory 
+INNER JOIN site04.Users ON site04.Items.UserID = site04.Users.UserID 
 go
 
 create proc User_Items(
@@ -78,4 +78,27 @@ else
 select 'Email Address already taken'
 
 go
+
+
+
+create proc Post(
+@Email nvarchar(200),
+@Catagory nvarchar(200),
+@Phone nvarchar(20),
+@Location nvarchar(200),
+@ItemImg nvarchar(200),
+@Description nvarchar(255),
+@title nvarchar(50),
+@Price money
+)
+as
+declare @UserID int
+declare @CatagoryID int
+set @UserID = (select UserID from Users Where Email = @Email)
+set @CatagoryID = (select CatagoryID from Catagory Where CatagoryName = @Catagory)
+
+Insert into Items(price ,ItemName,ItemImg, ItemLocation, Phone, ItemDscription ,UserID ,ItemCatagory ) values(@Price, @title, @ItemImg , @Location, @Phone, @Description, @UserID, @CatagoryID)
+
+go
+
 

@@ -115,6 +115,7 @@ public static class SQL
         return new JavaScriptSerializer().Serialize(Catagories);
     }
     
+<<<<<<< HEAD
     static public string PostItem(string email, string catagory, string name, string phone, string location, string description, int price, string image64) {
 
 
@@ -137,6 +138,14 @@ public static class SQL
         File.WriteAllBytes(imgPath, imageBytes);
 
         string returnPath = $"http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site04/"+ ImgName;
+=======
+    static public void PostItem(string email, string catagory, string name, string phone, string location, string description, int price, string image64) {
+
+
+        string filePath = $"{email}/{catagory}/{name}_{price}_image.jpg";
+        File.WriteAllBytes(filePath, Convert.FromBase64String(image64));
+
+>>>>>>> b9dd69d80fe0fcad4bc57c13379f88abc33d39fc
 
         SqlConnection con = new SqlConnection(connectionStr);
         adtr = new SqlDataAdapter($"Post", con);
@@ -145,14 +154,21 @@ public static class SQL
         adtr.SelectCommand.Parameters.Add(new SqlParameter("Catagory", catagory));
         adtr.SelectCommand.Parameters.Add(new SqlParameter("Phone", phone));
         adtr.SelectCommand.Parameters.Add(new SqlParameter("Location", location));
+<<<<<<< HEAD
         adtr.SelectCommand.Parameters.Add(new SqlParameter("ItemImg", returnPath));
+=======
+        adtr.SelectCommand.Parameters.Add(new SqlParameter("ItemImg", filePath));
+>>>>>>> b9dd69d80fe0fcad4bc57c13379f88abc33d39fc
         adtr.SelectCommand.Parameters.Add(new SqlParameter("Description", description));
         adtr.SelectCommand.Parameters.Add(new SqlParameter("title", name));
         adtr.SelectCommand.Parameters.Add(new SqlParameter("Price", price));
 
         DataSet errorsSet = new DataSet();
         adtr.Fill(errorsSet);
+<<<<<<< HEAD
 
         return returnPath;
+=======
+>>>>>>> b9dd69d80fe0fcad4bc57c13379f88abc33d39fc
     }
 }

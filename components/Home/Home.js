@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, Button, FlatList, RefreshControl } from 'react-native';
+import { View, StyleSheet, Text, Button, FlatList, RefreshControl, AsyncStorage } from 'react-native';
 import { Icon } from 'react-native-elements'
 import { Constants } from 'expo';
 import Item from './ItemPrev';
@@ -38,8 +38,18 @@ export default class Home extends Component {
   
   }
 
-  componentDidMount(){
+  async componentDidMount(){
     this.getUpdate();
+    
+    // try {
+    //   const value = await AsyncStorage.getItem('@yad4:user');
+    //   if (value !== null){
+    //     console.log(value);
+        
+    //   }
+    // } catch (error) {
+    //   // Error retrieving data
+    // }
   }
 
   _keyExtractor = (item, index) => index.toString();
@@ -48,8 +58,9 @@ export default class Home extends Component {
 
     return (
       <Wallpaper>
-      <View style={{direction: 'rtl'}}>
         <Menu navigation = {this.props.navigation}/>
+      <View style={{direction: 'rtl'}}>
+        
         <FlatList
         style={{marginTop: 30}}
           data={this.Items}

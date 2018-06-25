@@ -32,6 +32,7 @@ Submit = () =>{
           <UserInput
             placeholder="Email"
             autoCapitalize={'none'}
+            keyboardType={'email-address'}
             returnKeyType={'go'}
             autoCorrect={false}
             style={styles.input}
