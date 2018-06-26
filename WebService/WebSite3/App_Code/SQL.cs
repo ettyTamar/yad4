@@ -89,7 +89,7 @@ public static class SQL
     {
         DataSet SQLItems = new DataSet();
         SqlConnection con = new SqlConnection(connectionStr);
-        adtr = new SqlDataAdapter($"SELECT * FROM site04.GetAllItems", con);
+        adtr = new SqlDataAdapter($"SELECT * FROM site04.Users_Items", con);
         adtr.Fill(SQLItems, "Items");
 
         return SQLItems;
@@ -115,12 +115,11 @@ public static class SQL
         return new JavaScriptSerializer().Serialize(Catagories);
     }
     
-<<<<<<< HEAD
     static public string PostItem(string email, string catagory, string name, string phone, string location, string description, int price, string image64) {
 
 
       
-        string ImgName = $"ImageStorage/{email}/{catagory}/{name}_{price}_image.jpg";
+        string ImgName = $"ImageStorage/{email}_{catagory}_{name}_{price}_image.jpg";
         String path = HttpContext.Current.Server.MapPath($"~/"); //Path
 
         //Check if directory exist
@@ -138,14 +137,6 @@ public static class SQL
         File.WriteAllBytes(imgPath, imageBytes);
 
         string returnPath = $"http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site04/"+ ImgName;
-=======
-    static public void PostItem(string email, string catagory, string name, string phone, string location, string description, int price, string image64) {
-
-
-        string filePath = $"{email}/{catagory}/{name}_{price}_image.jpg";
-        File.WriteAllBytes(filePath, Convert.FromBase64String(image64));
-
->>>>>>> b9dd69d80fe0fcad4bc57c13379f88abc33d39fc
 
         SqlConnection con = new SqlConnection(connectionStr);
         adtr = new SqlDataAdapter($"Post", con);
@@ -154,21 +145,30 @@ public static class SQL
         adtr.SelectCommand.Parameters.Add(new SqlParameter("Catagory", catagory));
         adtr.SelectCommand.Parameters.Add(new SqlParameter("Phone", phone));
         adtr.SelectCommand.Parameters.Add(new SqlParameter("Location", location));
-<<<<<<< HEAD
         adtr.SelectCommand.Parameters.Add(new SqlParameter("ItemImg", returnPath));
-=======
-        adtr.SelectCommand.Parameters.Add(new SqlParameter("ItemImg", filePath));
->>>>>>> b9dd69d80fe0fcad4bc57c13379f88abc33d39fc
         adtr.SelectCommand.Parameters.Add(new SqlParameter("Description", description));
         adtr.SelectCommand.Parameters.Add(new SqlParameter("title", name));
         adtr.SelectCommand.Parameters.Add(new SqlParameter("Price", price));
 
         DataSet errorsSet = new DataSet();
         adtr.Fill(errorsSet);
-<<<<<<< HEAD
 
         return returnPath;
-=======
->>>>>>> b9dd69d80fe0fcad4bc57c13379f88abc33d39fc
+    }
+
+
+    static public void DeleteItem(string email, string id)
+    {
+
+        SqlConnection con = new SqlConnection(connectionStr);
+        adtr = new SqlDataAdapter($"DELETE site04.Items " +
+                                $"FROM site04.Items " +
+                                $"INNER JOIN site04.Users ON site04.Items.UserID = site04.Users.UserID " +
+                                $"WHERE(site04.Users.Email = @Email)  AND (site04.Items.ItemID = @ID)", con);
+        adtr.SelectCommand.Parameters.Add(new SqlParameter("Email", email));
+        adtr.SelectCommand.Parameters.Add(new SqlParameter("ID", id));
+        DataSet ds = new DataSet();
+        adtr.Fill(ds);
+        
     }
 }

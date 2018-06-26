@@ -74,7 +74,7 @@ export default class SellScreen extends Component {
   Post = () => {
 
       Handler.Post(this.state.email , this.state.catagory , this.state.name , this.state.phone,  this.state.location, this.state.desc, this.state.price ,this.state.pic.base64)
-      .then((res) => {console.log(res)})
+      .then((res) => {this.props.navigation.navigate('Home') })
       .catch((err)=>{  
         Alert.alert(
         '',

@@ -52,6 +52,8 @@ FROM site04.Catagory INNER JOIN site04.Items ON site04.Catagory.CatagoryID = sit
 INNER JOIN site04.Users ON site04.Items.UserID = site04.Users.UserID 
 go
 
+
+
 create proc User_Items(
 @Email nvarchar(200)
 )

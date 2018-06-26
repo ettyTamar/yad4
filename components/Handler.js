@@ -98,6 +98,28 @@ export default class Handler {
         })
     }
 
+    DeleteItem(email, id){
+        return new Promise( (resolve , reject) =>{
+            fetch(`${WebService}/DeleteItem`, {
+                headers: {
+                    'content-type': 'application/json; charset=UTF-8'
+                },
+                method: 'POST',
+                body: JSON.stringify({
+                    email: email,
+                    id: id
+                  }),
+            })
+                .then(res => res.json())
+                .then((json) => {
+                    resolve(JSON.parse(json.d));
+                   
+                })
+                .catch((err) => {
+                    reject(err)
+                })
+            })
+    }
 
     GetCatagories(){
       return new Promise( (resolve , reject) =>{

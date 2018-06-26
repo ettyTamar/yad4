@@ -30,8 +30,7 @@ export default class Home extends Component {
     this.setState({refreshing: true})
     Handler.GetItems()
     .then((res)=>{
-      this.Items = res > 0 ? res : {ItemDscription: 'No Items'}
-      console.log(this.Items);
+      this.Items = res.length > 0 ? res : [{ItemDscription: 'No Items'}]
       
       this.setState({refreshing: false})
     })
@@ -61,6 +60,7 @@ export default class Home extends Component {
     return (
       <Wallpaper>
         <Menu navigation = {this.props.navigation}/>
+        <Button title="LOG OUT" onPress={()=>{AsyncStorage.removeItem("@yad4:user"), ()=> {this.props.navigation.navigation("Login")}}}/>
       <View style={{direction: 'rtl'}}>
         
         <FlatList

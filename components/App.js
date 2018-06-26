@@ -5,7 +5,8 @@ import Search from './Search/Search';
 import About from './About/About';
 import Item from './Item/Item';
 import Sell from './Sell/Sell';
-
+import UserPage from './UserPage/UserPage';
+import Login from './Login/Login';
 
 const Nav = createDrawerNavigator({
   Home:{
@@ -17,11 +18,20 @@ const Nav = createDrawerNavigator({
   Post: {
     screen: Sell,
   },
+  MyPosts: {
+    screen: UserPage,
+  },
   About: {
     screen: About,
   },
   Item: {
     screen: Item,
+    navigationOptions :{
+      drawerLabel: ()=>null,
+    }
+  },
+  Login: {
+    screen: Login,
     navigationOptions :{
       drawerLabel: ()=>null,
     }
