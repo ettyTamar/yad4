@@ -71,6 +71,16 @@ public class WebService : System.Web.Services.WebService
         return SQL.GetCatagories();
     }
 
+<<<<<<< HEAD
+   [WebMethod]
+    public string PostItem(string email, string catagory, string name, string phone, string location, string description, int price, string image64)
+    {
+        return SQL.PostItem(email, catagory, name, phone, location, description, price, image64);
+    }
+
+
+
+=======
 
     [WebMethod]
     public void PostItem(string email , string catagory, string name , string phone , string location , string description , int price, string image64)
@@ -78,6 +88,7 @@ public class WebService : System.Web.Services.WebService
        SQL.PostItem( email,  catagory,  name,  phone,  location,  description,  price,  image64);
     }
 
+>>>>>>> b9dd69d80fe0fcad4bc57c13379f88abc33d39fc
 }
 
 
