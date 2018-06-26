@@ -14,7 +14,8 @@ export default class Item extends Component {
     const { navigation } = this.props;
     const item = navigation.getParam('data');
     let image =  item.ItemImg ? item.ItemImg : 'http://via.placeholder.com/150x150';
-
+    console.log(item);
+    
     return (
       <Wallpaper >
 

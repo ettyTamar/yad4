@@ -15,7 +15,7 @@ export default class Home extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      refreshing: false
+      refreshing: false,
     }
     this.Items = [];
   }
@@ -30,7 +30,9 @@ export default class Home extends Component {
     this.setState({refreshing: true})
     Handler.GetItems()
     .then((res)=>{
-      this.Items = res;
+      this.Items = res > 0 ? res : {ItemDscription: 'No Items'}
+      console.log(this.Items);
+      
       this.setState({refreshing: false})
     })
     .catch((err)=>{console.error(err)})
