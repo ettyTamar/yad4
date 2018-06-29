@@ -23,10 +23,15 @@ export default class Handler {
               
             })
             .then( (res) =>{ return res.json()})
-            .then( (json) =>{
+            .then( async (json) =>{
         
               
               if(json.d != 'Email Adress already taken'){
+                try {
+                    await AsyncStorage.setItem('@yad4:user', json.d);
+                  } catch (error) {
+                    // Error saving data
+                  }
                 resolve(json)
               }else{
                 reject(json.d);

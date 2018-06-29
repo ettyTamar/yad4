@@ -16,12 +16,15 @@ constructor(props){
 async componentDidMount(){
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === 'granted' });
-}
+    
 
+  
+  
+}
 
     Picture = async() =>{
         if (this.camera) {
-          const picture = await this.camera.takePictureAsync({quality: 0.2,base64: true})
+          const picture = await this.camera.takePictureAsync({quality: 0.1,base64: true})
           this.props.Snap(picture);
         } 
     }

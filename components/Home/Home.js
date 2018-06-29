@@ -5,9 +5,11 @@ import { Constants } from 'expo';
 import Item from './ItemPrev';
 import Menu from '../MenuButton';
 import Wallpaper from '../Wallpaper';
-
 import handler from '../Handler';
 const Handler = new handler();
+
+
+
 export default class Home extends Component {
 
 
@@ -16,8 +18,10 @@ export default class Home extends Component {
     super(props)
     this.state = {
       refreshing: false,
+      isReady: false
     }
     this.Items = [];
+    this.images = [];
   }
 
 
@@ -31,7 +35,7 @@ export default class Home extends Component {
     Handler.GetItems()
     .then((res)=>{
       this.Items = res.length > 0 ? res : [{ItemDscription: 'No Items'}]
-      
+      this.images = this.Items.map(item=>item.ItemImg);
       this.setState({refreshing: false})
     })
     .catch((err)=>{console.error(err)})
@@ -53,21 +57,26 @@ export default class Home extends Component {
     // }
   }
 
-  _keyExtractor = (item, index) => index.toString();
 
+  _keyExtractor = (item, index) => index.toString();
+  renderItem = ({ item , index }) => <Item key={index} ItemData = {item}/>;
   render() {
+   
 
     return (
       <Wallpaper>
         <Menu navigation = {this.props.navigation}/>
-        <Button title="LOG OUT" onPress={()=>{AsyncStorage.removeItem("@yad4:user"), ()=> {this.props.navigation.navigation("Login")}}}/>
-      <View style={{direction: 'rtl'}}>
+       <View style={{direction: 'rtl'}}>
         
         <FlatList
         style={{marginTop: 30}}
           data={this.Items}
           keyExtractor={this._keyExtractor}
-          renderItem={({ item , index }) => <Item key={index} ItemData = {item}/>}
+          getItemLayout={(data, index) => (
+            {length: 150, offset: 150 * index, index}
+          )}
+          renderItem={this.renderItem}
+          initialNumToRender={5}
           refreshControl={
             <RefreshControl
               refreshing={this.state.refreshing}
@@ -77,6 +86,7 @@ export default class Home extends Component {
   
         />
       </View>
+      <Button title="LOG OUT" onPress={()=>{AsyncStorage.removeItem("@yad4:user"), ()=> {this.props.navigation.navigation("Login")}}}/>
       </Wallpaper>
     );
   }

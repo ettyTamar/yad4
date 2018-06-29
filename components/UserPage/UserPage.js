@@ -28,7 +28,7 @@ export default class UserPage extends Component {
         this.setState({refreshing: true})
         Handler.GetItems()
         .then((res)=>{
-          const Items = res.length > 0 ? res : [{ItemDscription: 'No Items'}]
+          const Items = res.length > 0 ? res.filter(item=> item.Email ==this.email) : [{ItemDscription: 'No Items'}]
           
           this.setState({refreshing: false, Items})
         })
