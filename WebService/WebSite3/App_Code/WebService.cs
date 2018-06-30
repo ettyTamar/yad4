@@ -78,10 +78,12 @@ public class WebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void DeleteItem(string email)
+    public void DeleteItem(string email, string id)
     {
-        SQL.DeleteItem();
+        SQL.DeleteItem(email, id);
     }
+
+
 
 
 }

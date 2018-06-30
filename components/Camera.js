@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {  View, Button } from 'react-native';
-import { Camera, Permissions } from 'expo';
+import { Camera, Permissions, ImageManipulator } from 'expo';
 
 
 export default class MyCamera extends Component {
@@ -24,8 +24,9 @@ async componentDidMount(){
 
     Picture = async() =>{
         if (this.camera) {
-          const picture = await this.camera.takePictureAsync({quality: 0.1,base64: true})
-          this.props.Snap(picture);
+          const picture = await this.camera.takePictureAsync()
+          const smallpic = await ImageManipulator.manipulate( picture.uri , [ { resize: {width: 700 , height: 700 } } ], { format: 'jpeg', base64: true });          
+          this.props.Snap(smallpic);
         } 
     }
 

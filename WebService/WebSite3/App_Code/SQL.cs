@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -108,9 +110,9 @@ public static class SQL
         adtr.Fill(ds, "Catagories");
 
         var Catagories = new List<string>();
-        foreach (DataColumn col in ds.Tables["Catagories"].Rows[0].Table.Columns)
+         for (int i = 0; i < ds.Tables["Catagories"].Rows.Count; i++)
         {
-            Catagories.Add(ds.Tables["Catagories"].Rows[0][col].ToString());
+            Catagories.Add(ds.Tables["Catagories"].Rows[i][0].ToString());
         }
         return new JavaScriptSerializer().Serialize(Catagories);
     }
@@ -131,10 +133,13 @@ public static class SQL
 
         //set the image path
         string imgPath = Path.Combine(path, ImgName);
-
         byte[] imageBytes = Convert.FromBase64String(image64);
 
-        File.WriteAllBytes(imgPath, imageBytes);
+
+        using (Image image = Image.FromStream(new MemoryStream(imageBytes)))
+        {
+            image.Save(imgPath, ImageFormat.Jpeg);  // Or Png
+        }
 
         string returnPath = $"http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site04/"+ ImgName;
 

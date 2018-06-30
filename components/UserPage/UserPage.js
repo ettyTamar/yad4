@@ -27,9 +27,7 @@ export default class UserPage extends Component {
       getUpdate = () => {
         this.setState({refreshing: true})
         Handler.GetItems()
-        .then((res)=>{
-          const Items = res.length > 0 ? res.filter(item=> item.Email ==this.email) : [{ItemDscription: 'No Items'}]
-          
+        .then((Items)=>{
           this.setState({refreshing: false, Items})
         })
         .catch((err)=>{console.error(err)})
@@ -54,7 +52,7 @@ export default class UserPage extends Component {
 
 
 _keyExtractor = (item, index) => index.toString();
-
+_renderItem = ({ item , index }) => <Item email={this.email} update = {this.getUpdate} key={index} ItemData = {item}/>;
 
 
   render() {
@@ -69,7 +67,7 @@ _keyExtractor = (item, index) => index.toString();
         style={{marginTop: 30}}
           data={this.state.Items}
           keyExtractor={this._keyExtractor}
-          renderItem={({ item , index }) => <Item email={this.email} key={index} ItemData = {item}/> }
+          renderItem={ ({ item , index }) => <Item email={this.email} update = {this.getUpdate} key={index} ItemData = {item}/> }
 
         />
       </View>

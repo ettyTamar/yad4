@@ -33,8 +33,8 @@ export default class SellScreen extends Component {
 
     try{
       const catagories = await Handler.GetCatagories();
-      catagories.map((item, index) => {
-        Options.push(<Picker.Item key={index} label={item} value={item} />)
+      const Options = catagories.map((item, index) => {
+        return <Picker.Item key={index} label={item} value={item} />
       });
       this.setState({ Options , catagory: catagories[0] })
     }
@@ -102,6 +102,7 @@ export default class SellScreen extends Component {
 
           <Picker
             style={stlyes.dropdown}
+            selectedValue={this.state.catagory}
             onValueChange={(itemValue) => this.setState({ catagory: itemValue })}>
 
             {this.state.Options}

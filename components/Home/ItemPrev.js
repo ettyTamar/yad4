@@ -3,17 +3,16 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import {Dimensions } from 'react-native';
 import {withNavigation} from 'react-navigation';
 
-
 class Item extends React.PureComponent {
     constructor(props){
         super(props);
-        this.state = {
-            source: ''
-        }
+
     }
  
     navigate = () => this.props.navigation.navigate('Item' , {data : this.props.ItemData});
     render() {
+        const image =  this.props.ItemData.ItemImg ? this.props.ItemData.ItemImg : 'http://via.placeholder.com/150x150';
+
        return (
 
             <View  style={{marginTop: 20 , direction: "rtl"}}>
@@ -22,7 +21,7 @@ class Item extends React.PureComponent {
                         
                         <Image
                             style={{ width: 150, height: 150, borderRadius: 10  }}
-                            source={{ uri:  this.state.source }} />
+                            source={{ uri:  encodeURI(image) }} />
                         <Text style= {styles.location}>מיקום: {this.props.ItemData.ItemLocation}</Text>
                         <Text style={styles.title}>{this.props.ItemData.CatagoryName }, {this.props.ItemData.ItemName}</Text>
                         <View style= {styles.description}> 

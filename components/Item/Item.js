@@ -13,9 +13,8 @@ export default class Item extends Component {
     
     const { navigation } = this.props;
     const item = navigation.getParam('data');
-    let image =  item.ItemImg ? item.ItemImg : 'http://via.placeholder.com/150x150';
-    console.log(item);
-    
+    const image =  item.ItemImg ? item.ItemImg : 'http://via.placeholder.com/150x150';
+
     return (
       <Wallpaper >
 
@@ -29,7 +28,7 @@ export default class Item extends Component {
 
           <Image
             style={{ width: 150, height: 150, borderRadius: 10 }}
-            source={{ uri: image }} />
+            source={{ uri: encodeURI(image) }} />
           <Text>{item.price}</Text>
           <Text>{item.UName_First}</Text>
           <Text>{item.UName_Last}</Text>

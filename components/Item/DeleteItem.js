@@ -10,9 +10,15 @@ const Handler = new handler();
 
 class DeleteItem extends Component {
 
+    delete = ()=>{
+        Handler.DeleteItem(this.props.email , this.props.ItemData.ItemID)
+        .then(()=> {
+            this.props.update();
+        });
     
+    }
     render() {
-        let image =  this.props.ItemData.ItemImg ? this.props.ItemData.ItemImg : 'http://via.placeholder.com/150x150';
+        const image =  this.props.ItemData.ItemImg ? this.props.ItemData.ItemImg : 'http://via.placeholder.com/150x150';
         return (
 
             <View  style={{marginTop: 20 , direction: "rtl"}}>
@@ -21,7 +27,7 @@ class DeleteItem extends Component {
                         
                         <Image
                             style={{ width: 150, height: 150, borderRadius: 10 }}
-                            source={{ uri: image }} />
+                            source={{ uri: encodeURI(image) }} />
                         <Text style= {styles.location}>מיקום: {this.props.ItemData.ItemLocation}</Text>
                         <Text style={styles.title}>{this.props.ItemData.CatagoryName }, {this.props.ItemData.ItemName}</Text>
                         <View style= {styles.description}> 
@@ -33,7 +39,7 @@ class DeleteItem extends Component {
                     </View>
                 </TouchableOpacity>
                 { this.props.ItemData.ItemID ? (
-                    <Button title='DELETE' onPress={()=>{console.log(this.props.email, this.props.ItemData.ItemID);Handler.DeleteItem(this.props.email , this.props.ItemData.ItemID)}} />
+                    <Button title='DELETE' onPress={this.delete} />
                 ) : null}
                 </View>
 

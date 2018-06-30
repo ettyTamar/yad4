@@ -9,7 +9,6 @@ import handler from '../Handler';
 const Handler = new handler();
 
 
-
 export default class Home extends Component {
 
 
@@ -21,8 +20,7 @@ export default class Home extends Component {
       isReady: false
     }
     this.Items = [];
-    this.images = [];
-  }
+ }
 
 
   static navigationOptions = {
@@ -35,7 +33,7 @@ export default class Home extends Component {
     Handler.GetItems()
     .then((res)=>{
       this.Items = res.length > 0 ? res : [{ItemDscription: 'No Items'}]
-      this.images = this.Items.map(item=>item.ItemImg);
+      
       this.setState({refreshing: false})
     })
     .catch((err)=>{console.error(err)})
@@ -59,7 +57,7 @@ export default class Home extends Component {
 
 
   _keyExtractor = (item, index) => index.toString();
-  renderItem = ({ item , index }) => <Item key={index} ItemData = {item}/>;
+  renderItem = ({ item , index }) => <Item key={index} index={index} ItemData = {item}/>;
   render() {
    
 
@@ -67,8 +65,7 @@ export default class Home extends Component {
       <Wallpaper>
         <Menu navigation = {this.props.navigation}/>
        <View style={{direction: 'rtl'}}>
-        
-        <FlatList
+      <FlatList
         style={{marginTop: 30}}
           data={this.Items}
           keyExtractor={this._keyExtractor}
@@ -76,7 +73,6 @@ export default class Home extends Component {
             {length: 150, offset: 150 * index, index}
           )}
           renderItem={this.renderItem}
-          initialNumToRender={5}
           refreshControl={
             <RefreshControl
               refreshing={this.state.refreshing}
