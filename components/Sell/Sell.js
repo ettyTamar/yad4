@@ -150,6 +150,7 @@ export default class SellScreen extends Component {
               size={70}
               name='camera'
               type='evilicon'
+              color= 'white'
               onPress={() => { this.setState({ modalVisible: true }) }} style={stlyes.margBottom} />
 
             <Image

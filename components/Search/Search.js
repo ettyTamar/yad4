@@ -1,14 +1,11 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, TextInput, Button, FlatList } from "react-native";
-import { Dimensions } from "react-native";
-import UserInput from '../Form/UserInput';
+import { Dimensions,View, StyleSheet, TextInput, FlatList } from "react-native";
 import Wallpaper from '../Wallpaper';
 import Menu from '../MenuButton';
 import Item from '../Home/ItemPrev';
-import handler from '../Handler';
+import Handler from '../Handler';
+import { Icon } from 'react-native-elements'
 
-
-const Handler = new handler();
 
 export default class Search extends Component {
   constructor(props) {
@@ -22,49 +19,66 @@ export default class Search extends Component {
 
   static navigationOptions = { drawerLabel: "Search" };
 
-  Search = () =>{
-    let filtered = this.allItems.filter( (item) => {
-      return(item.CatagoryName.includes(this.state.searchText) | item.ItemName.includes(this.state.searchText))
+  Search = () => {
+    let filtered = this.allItems.filter((item) => {
+      return (item.CatagoryName.includes(this.state.searchText) | item.ItemName.includes(this.state.searchText))
     })
-    this.setState({items: filtered});
+    this.setState({ items: filtered });
 
   }
 
-  componentDidMount(){
+  componentDidMount() {
     Handler.GetItems()
-    .then( (res) => {
-      this.allItems = res;
-    })
-    .catch( (err) => {console.error(err)})
+      .then((res) => {
+        this.allItems = res;
+      })
+      .catch((err) => { console.error(err) })
   }
-  
+
   render() {
-    return(
-    <Wallpaper >
+    return (
+      <Wallpaper >
+
+        <Menu navigation={this.props.navigation} />
+        <View style={{flexDirection: 'row', marginTop: 30}}>
+        <TextInput
+          style={styles.input}
+          placeholder="Search"
+          placeholderTextColor="white"
+          underlineColorAndroid="transparent"
+          onChangeText = { (text) => this.setState({searchText: text})}
+        />
       
-      <Menu navigation = {this.props.navigation}/>
-      <UserInput
-        placeholder="Search"
-        autoCapitalize={'none'}
-        returnKeyType={'go'}
-        autoCorrect={false}
-        style={styles.input}
-        onChangeText={(text) => { this.setState({ searchText: text }) }}
-      />
-      <Button title="Go" onPress={this.Search}/>
-      
-      <FlatList
-        style={{marginTop: 30}}
+        <Icon
+            name='search'
+            type='evilicon'
+            color='white'
+            size={50}
+            style={{alignSelf: 'center',justifyContent: 'center'}}
+            onPress={this.Search} />
+            </View>
+        <FlatList
+          style={{ marginTop: 30 }}
           data={this.state.items}
-          renderItem={({ item , index }) => <Item key={index} ItemData = {item}/>}
+          renderItem={({ item, index }) => <Item key={index} ItemData={item} />}
         />
 
-    </Wallpaper>
-    )}
+      </Wallpaper>
+    )
+  }
 }
+
+const DEVICE_WIDTH = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   input: {
-    marginTop: 50,
-  }
+    backgroundColor: 'rgba(255, 255, 255, 0.4)',
+    width: DEVICE_WIDTH - 100,
+    height: 40,
+    paddingLeft: 45,
+    borderRadius: 20,
+    color: '#ffffff',
+    alignSelf: 'center',
+    justifyContent: 'center',
+  },
 });
