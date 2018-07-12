@@ -7,8 +7,7 @@ import ButtonSubmit from '../Form/ButtonSubmit';
 import SignupSection from './SignupSection';
 import usernameImg from '../../assets/images/username.png';
 import passwordImg from '../../assets/images/password.png';
-import handler from '../Handler';
-const Handler = new handler();
+import Handler from '../Handler';
 
 export default class Login extends Component {
 
@@ -65,6 +64,7 @@ async componentDidMount(){
 
           />
         </KeyboardAvoidingView>
+        
         <SignupSection />
         <ButtonSubmit title={'LOGIN'} Submit={this.Submit} />
 

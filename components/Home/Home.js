@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, Button, FlatList, RefreshControl, AsyncStorage } from 'react-native';
-import { Icon } from 'react-native-elements'
-import { Constants } from 'expo';
+import { View, FlatList, RefreshControl, AsyncStorage } from 'react-native';
 import Item from './ItemPrev';
 import Menu from '../MenuButton';
 import Wallpaper from '../Wallpaper';
-import handler from '../Handler';
-const Handler = new handler();
-
+import Handler from '../Handler';
 
 export default class Home extends Component {
 
@@ -82,7 +78,6 @@ export default class Home extends Component {
   
         />
       </View>
-      <Button title="LOG OUT" onPress={()=>{AsyncStorage.removeItem("@yad4:user"), ()=> {this.props.navigation.navigation("Login")}}}/>
       </Wallpaper>
     );
   }

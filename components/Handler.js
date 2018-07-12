@@ -1,13 +1,15 @@
 import {AsyncStorage }  from 'react-native'
+import { Permissions, Notifications } from 'expo';
 
 const WebService = 'http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site04/WebService.asmx'
+
 
 export default class Handler {
 
 
 
 
-    Register(email ,name , last_name, pass ){
+    static Register(email ,name , last_name, pass ){
         return new Promise( (resolve , reject)=>{
             fetch(WebService + '/Register', {
               body: JSON.stringify({
@@ -45,7 +47,7 @@ export default class Handler {
           
     }
 
-    Login(email , password){
+    static Login(email , password){
         return new Promise((resolve, reject) => {
             fetch(WebService + '/Login', {
               body: JSON.stringify({
@@ -84,7 +86,7 @@ export default class Handler {
 
     }
 
-    GetItems() {
+    static GetItems() {
         return new Promise( (resolve , reject) =>{
         fetch(`${WebService}/GetAllItems`, {
             headers: {
@@ -103,7 +105,7 @@ export default class Handler {
         })
     }
 
-    DeleteItem(email, id){
+    static DeleteItem(email, id){
         return new Promise( (resolve , reject) =>{
             fetch(`${WebService}/DeleteItem`, {
                 headers: {
@@ -126,7 +128,7 @@ export default class Handler {
             })
     }
 
-    GetCatagories(){
+    static GetCatagories(){
       return new Promise( (resolve , reject) =>{
         fetch(`${WebService}/GetCatagories`, {
             headers: {
@@ -145,7 +147,7 @@ export default class Handler {
         })
     }
 
-    Post(email , catagory , name , phone, location, description, price ,image64 ){
+    static  Post(email , catagory , name , phone, location, description, price ,image64 ){
  
         let data = {
             email: email,
@@ -178,4 +180,62 @@ export default class Handler {
             })
         })
     }
+
+
+
+
+      
+     static async registerForPushNotificationsAsync(email, catagory) {
+        const { status: existingStatus } = await Permissions.getAsync(
+          Permissions.NOTIFICATIONS
+        );
+        let finalStatus = existingStatus;
+      
+        // only ask if permissions have not already been determined, because
+        // iOS won't necessarily prompt the user a second time.
+        if (existingStatus !== 'granted') {
+          // Android remote notification permissions are granted during the app
+          // install, so this will only ask on iOS
+          const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+          finalStatus = status;
+        }
+      
+        // Stop here if the user did not grant permissions
+        if (finalStatus !== 'granted') {
+          return;
+        }
+      
+        // Get the token that uniquely identifies this device
+        let token = await Notifications.getExpoPushTokenAsync();
+        console.log({ token , email, catagory});
+        
+        // POST the token to your backend server from where you can retrieve it to send push notifications.
+        fetch(WebService+ '/RegisterNotification', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ token , email, catagory})
+        }).then(res=>console.log(res))
+        .catch(err => console.log(err));
+      }
+
+
+
+      static UnSub(email){
+       
+          fetch(`${WebService}/UnSub`, {
+              headers: {
+                  'content-type': 'application/json; charset=UTF-8'
+              },
+              method: 'POST',
+              body: JSON.stringify({ email})
+          })
+        }
+      
+  
+
+
+
 };

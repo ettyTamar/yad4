@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import {  View, Text, Button, FlatList , AsyncStorage } from 'react-native';
-import handler from '../Handler';
+import {  View,  FlatList , AsyncStorage } from 'react-native';
+import Handler from '../Handler';
 import Menu from '../MenuButton';
 import Wallpaper from '../Wallpaper';
 import Item from '../Item/DeleteItem';
-const Handler = new handler();
-
 
 
 export default class UserPage extends Component {
@@ -15,7 +13,6 @@ export default class UserPage extends Component {
         this.state = {
             Items: []
         }
-        this.Items = []; 
         this.email = ''
     }
 
@@ -27,7 +24,8 @@ export default class UserPage extends Component {
       getUpdate = () => {
         this.setState({refreshing: true})
         Handler.GetItems()
-        .then((Items)=>{
+        .then((items)=>{
+          const Items = items.filter(item =>  item.Email == this.email)
           this.setState({refreshing: false, Items})
         })
         .catch((err)=>{console.error(err)})
@@ -37,7 +35,7 @@ export default class UserPage extends Component {
 
       
     async componentDidMount(){
-        this.getUpdate();
+        
         try {
           const value = await AsyncStorage.getItem('@yad4:user');
       
@@ -48,6 +46,7 @@ export default class UserPage extends Component {
           console.log(error);
           
         }
+        this.getUpdate();
       }
 
 

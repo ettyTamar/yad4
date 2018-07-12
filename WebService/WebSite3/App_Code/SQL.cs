@@ -6,7 +6,6 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
 
@@ -20,7 +19,6 @@ public static class SQL
 
     static string connectionStr = ConfigurationManager.ConnectionStrings["LIVEDNS"].ConnectionString;
     static SqlDataAdapter adtr = null;
-
 
     static public string Login(string email, string password)
     {
@@ -117,7 +115,7 @@ public static class SQL
         return new JavaScriptSerializer().Serialize(Catagories);
     }
     
-    static public string PostItem(string email, string catagory, string name, string phone, string location, string description, int price, string image64) {
+    static public List<string> PostItem(string email, string catagory, string name, string phone, string location, string description, int price, string image64) {
 
 
       
@@ -138,7 +136,7 @@ public static class SQL
 
         using (Image image = Image.FromStream(new MemoryStream(imageBytes)))
         {
-            image.Save(imgPath, ImageFormat.Jpeg);  // Or Png
+           image.Save(imgPath, ImageFormat.Jpeg);  // Or Png
         }
 
         string returnPath = $"http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site04/"+ ImgName;
@@ -158,7 +156,11 @@ public static class SQL
         DataSet errorsSet = new DataSet();
         adtr.Fill(errorsSet);
 
-        return returnPath;
+        List<string> returnRes = new List<string>();
+        returnRes.Add(returnPath);
+        returnRes.Add(catagory);
+
+        return returnRes;
     }
 
 
@@ -176,4 +178,5 @@ public static class SQL
         adtr.Fill(ds);
         
     }
+
 }

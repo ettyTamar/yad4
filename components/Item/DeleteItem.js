@@ -3,10 +3,7 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import {Dimensions} from 'react-native';
 import {withNavigation} from 'react-navigation';
 import { Button } from 'react-native-elements';
-import handler from '../Handler';
-const Handler = new handler();
-
-
+import Handler from '../Handler';
 
 class DeleteItem extends Component {
 

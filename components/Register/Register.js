@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native';
 import Wallpaper from '../Wallpaper';
 import UserInput from '../Form/UserInput';
-import usernameImg from '../../assets/images/username.png';
-import passwordImg from '../../assets/images/password.png';
 import ButtonSubmit from '../Form/ButtonSubmit';
-import handler from '../Handler';
-const Handler = new handler();
+import Handler from '../Handler';
 
 export default class Register extends Component {
 
