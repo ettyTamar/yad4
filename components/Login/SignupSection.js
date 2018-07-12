@@ -10,7 +10,6 @@ class SignupSection extends Component {
       <TouchableOpacity onPress={()=>{this.props.navigation.navigate('Register')} }>
         <Text style={styles.text}>Create Account</Text>
       </TouchableOpacity>
-        <Text style={styles.text}>Guest</Text>
       </View>
     );
   }
