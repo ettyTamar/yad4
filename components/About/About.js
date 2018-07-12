@@ -20,9 +20,7 @@ export default class About extends Component {
           <Text style={styles.text}>
             orhaybenaim@gmail.com
           </Text>
-          <Text style={styles.text}>
-            Want to buy? contect us.
-          </Text>
+ 
 
         </View>
       </Wallpaper>
