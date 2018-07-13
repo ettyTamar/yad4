@@ -1,4 +1,4 @@
-create database NirProject
+﻿create database NirProject
 on(name='NirProject_Data',
 fileName='C:\NirProjectSQL\NirProject_data.mdf',
 size=10,
@@ -83,7 +83,7 @@ go
 
 
 
-create proc Post(
+alter proc Post(
 @Email nvarchar(200),
 @Catagory nvarchar(200),
 @Phone nvarchar(20),
@@ -98,9 +98,16 @@ declare @UserID int
 declare @CatagoryID int
 set @UserID = (select UserID from Users Where Email = @Email)
 set @CatagoryID = (select CatagoryID from Catagory Where CatagoryName = @Catagory)
+declare @ITEMID table (ItemID int)
 
-Insert into Items(price ,ItemName,ItemImg, ItemLocation, Phone, ItemDscription ,UserID ,ItemCatagory ) values(@Price, @title, @ItemImg , @Location, @Phone, @Description, @UserID, @CatagoryID)
+Insert into Items(price ,ItemName,ItemImg, ItemLocation, Phone, ItemDscription ,UserID ,ItemCatagory ) 
+output inserted.ItemID into @ITEMID
+values(@Price, @title, @ItemImg , @Location, @Phone, @Description, @UserID, @CatagoryID)
 
+declare @_itemid int
+set @_itemid = (select top 1 ItemID from @ITEMID)
+select * from Users_Items
+WHERE(Users_Items.ItemID LIKE @_itemid)
 go
 
-
+exec Post 'orhaybenaim@gmail.com', 'ביגוד ואביזרים', '050213', 'asdsad', '' ,'', '', ''

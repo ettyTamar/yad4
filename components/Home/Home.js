@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { View, FlatList, RefreshControl, AsyncStorage } from 'react-native';
+import { View, FlatList, RefreshControl } from 'react-native';
 import Item from './ItemPrev';
 import Menu from '../MenuButton';
 import Wallpaper from '../Wallpaper';
 import Handler from '../Handler';
-
+import {Notifications} from 'expo';
 export default class Home extends Component {
 
 
@@ -39,17 +39,20 @@ export default class Home extends Component {
 
   async componentDidMount(){
     this.getUpdate();
-    
-    // try {
-    //   const value = await AsyncStorage.getItem('@yad4:user');
-    //   if (value !== null){
-    //     console.log(value);
-        
-    //   }
-    // } catch (error) {
-    //   // Error retrieving data
-    // }
+   
+    this._notificationSubscription = Notifications.addListener(this._handleNotification);
+ 
+
   }
+
+
+  _handleNotification = (notification) => {
+    this.props.navigation.navigate('Item' , {data : notification.data})
+    console.log(notification.data);
+    
+  };
+
+
 
 
   _keyExtractor = (item, index) => index.toString();

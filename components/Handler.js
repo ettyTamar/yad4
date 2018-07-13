@@ -207,7 +207,6 @@ export default class Handler {
       
         // Get the token that uniquely identifies this device
         let token = await Notifications.getExpoPushTokenAsync();
-        console.log({ token , email, catagory});
         
         // POST the token to your backend server from where you can retrieve it to send push notifications.
         fetch(WebService+ '/RegisterNotification', {
@@ -217,8 +216,7 @@ export default class Handler {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ token , email, catagory})
-        }).then(res=>console.log(res))
-        .catch(err => console.log(err));
+        })
       }
 
 

@@ -115,7 +115,7 @@ public static class SQL
         return new JavaScriptSerializer().Serialize(Catagories);
     }
     
-    static public List<string> PostItem(string email, string catagory, string name, string phone, string location, string description, int price, string image64) {
+    static public Dictionary<string, object> PostItem(string email, string catagory, string name, string phone, string location, string description, int price, string image64) {
 
 
       
@@ -136,7 +136,7 @@ public static class SQL
 
         using (Image image = Image.FromStream(new MemoryStream(imageBytes)))
         {
-           image.Save(imgPath, ImageFormat.Jpeg);  // Or Png
+            image.Save(imgPath, ImageFormat.Jpeg);  // Or Png
         }
 
         string returnPath = $"http://185.60.170.14/plesk-site-preview/ruppinmobile.ac.il/site04/"+ ImgName;
@@ -153,14 +153,22 @@ public static class SQL
         adtr.SelectCommand.Parameters.Add(new SqlParameter("title", name));
         adtr.SelectCommand.Parameters.Add(new SqlParameter("Price", price));
 
-        DataSet errorsSet = new DataSet();
-        adtr.Fill(errorsSet);
+        DataSet Item = new DataSet();
+        adtr.Fill(Item, "Item");
 
-        List<string> returnRes = new List<string>();
-        returnRes.Add(returnPath);
-        returnRes.Add(catagory);
 
-        return returnRes;
+        var _Item = new Dictionary<string, object>();
+        for (int i = 0; i < Item.Tables["Item"].Rows.Count; i++)
+        {
+           
+            foreach (DataColumn col in Item.Tables["Item"].Rows[i].Table.Columns)
+            {
+                _Item.Add(col.ColumnName, Item.Tables["Item"].Rows[i][col]);
+            }
+
+        }
+
+        return _Item;
     }
 
 

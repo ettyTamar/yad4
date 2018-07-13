@@ -9,6 +9,7 @@ using System.Web.Services;
 using System.Net;
 using System.Collections.Specialized;
 
+
 /// <summary>
 /// Summary description for WebService
 /// </summary>
@@ -73,7 +74,7 @@ public class WebService : System.Web.Services.WebService
    [WebMethod]
     public string PostItem(string email, string catagory, string name, string phone, string location, string description, int price, string image64)
     {
-        List<string> res = SQL.PostItem(email, catagory, name, phone, location, description, price, image64);
+        Dictionary<string, object> res = SQL.PostItem(email, catagory, name, phone, location, description, price, image64);
         foreach (var user in UsersNotify)
         {
             if (email == user.Key.ToString())
@@ -85,9 +86,11 @@ public class WebService : System.Web.Services.WebService
             {
                 using (var client = new WebClient())
                 {
+                    
                     var values = new NameValueCollection();
                     values["to"] = token;
                     values["body"] = $"some one posted a new item at {_catagory}";
+                    values["data"] = new JavaScriptSerializer().Serialize(res);
 
                     var response = client.UploadValues("https://exp.host/--/api/v2/push/send", values);
 
@@ -96,7 +99,7 @@ public class WebService : System.Web.Services.WebService
 
 
         }
-        return res[0];
+        return new JavaScriptSerializer().Serialize(res) ;
     }
 
     [WebMethod]
@@ -123,21 +126,18 @@ public class WebService : System.Web.Services.WebService
         }
     }
 
+
+
     [WebMethod]
     public void UnSub(string email)
-    { 
-    if (UsersNotify.ContainsKey(email))
+    {
+        if (UsersNotify.ContainsKey(email))
         {
             UsersNotify.Remove(email);
         }
-        
     }
 
-   [WebMethod]
-    public string GetSubs()
-    {
-        return new JavaScriptSerializer().Serialize(UsersNotify);
-    }
+
 
 }
 
